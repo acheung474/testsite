@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.collapsible {
+  background-color: #00000;
+  color: black;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: 18px;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #00000;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #00000;
+}
+
+.textbox {
+  width: 100%;
+}
+</style>
+</head>
+
+<script type="text/javascript">
+
+function WriteToDownload(formInput) {
+   form_data = [
+                 [formInput.name.value, formInput.date.value, formInput.homeowner.value, formInput.address.value]
+    ]
+   download_csv_file(form_data);
+   }
+
+//create a user-defined function to download CSV file 
+function download_csv_file(csvFileData) {
+
+    //define the heading for each row of the data
+    var csv = 'Name,Date,Homeowner,Address\n';
+    
+    //merge the data with CSV
+    csvFileData.forEach(function(row) {
+            csv += row.join(',');
+            csv += "\n";
+    });
+ 
+    //display the created CSV data on the web browser 
+    document.write(csv);
+
+   
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    hiddenElement.target = '_blank';
+    
+    //provide the name for the CSV file to be downloaded
+    hiddenElement.download = 'A1 Form Report.csv';
+    hiddenElement.click();
+}
+</script>
+
+
+<body>
+
+<h2>Assessment 1 Form</h2>
+
+<form>
+  <label for="name">Name:</label><br>
+  <input type="text" id="name" name="name"><br>
+  <label for="date">Date:</label><br>
+  <input type="text" id="date" name="date"><br>
+ <label for="homeowner">Homeowner:</label><br>
+  <input type="text" id="homeowner" name="homeowner"><br>
+ <label for="address">Address:</label><br>
+  <input type="text" id="address" name="address"><br><br>
+
+<div data-role="collapsible">
+  
+
+<button type="button" class="collapsible">Kitchen</button>
+<div class="content"><br>
+    <input type="checkbox" id="concernKitchen1" name="concernKitchen1" value="Sink" onchange="javascript:toggleOtherTextboxVisible('concernKitchen1', 'TextBoxKitchen1')" />
+    <label for="concernKitchen1"> Sink</label><br>   
+    <input id="TextBoxKitchen1" type="text" style="display:none" class="textbox"/>
+  <input type="checkbox" id="concernKitchen2" name="concernKitchen2" value="Appliances" onchange="javascript:toggleOtherTextboxVisible('concernKitchen2', 'TextBoxKitchen2')" />
+  <label for="concernKitchen2"> Appliance</label><br>
+  <input id="TextBoxKitchen2" type="text" style="display:none" class="textbox"/> 
+ <input type="checkbox" id="concernKitchen3" name="concernKitchen3" value="Windows" onchange="javascript:toggleOtherTextboxVisible('concernKitchen3', 'TextBoxKitchen3')" />
+  <label for="concernKitchen3"> Windows</label><br>
+  <input id="TextBoxKitchen3" type="text" style="display:none" class="textbox"/><br>
+</div>
+
+<button type="button" class="collapsible">Bathroom</button>
+<div class="content"><br>
+    <input type="checkbox" id="concernBathroom1" name="concernBathroom1" value="Grab bar" onchange="javascript:toggleOtherTextboxVisible('concernBathroom1', 'TextBoxBathroom1')" />
+    <label for="concernBathroom1"> Grab bar</label><br>   
+    <input id="TextBoxBathroom1" type="text" style="display:none" class="textbox"/>
+  <input type="checkbox" id="concernBathroom2" name="concernBathroom2" value="Toilet" onchange="javascript:toggleOtherTextboxVisible('concernBathroom2', 'TextBoxBathroom2')" />
+  <label for="concernBathroom2"> Toilet</label><br>
+  <input id="TextBoxBathroom2" type="text" style="display:none" class="textbox"/> 
+ <input type="checkbox" id="concernBathroom3" name="concernBathroom3" value="Shower" onchange="javascript:toggleOtherTextboxVisible('concernBathroom3', 'TextBoxBathroom3')" />
+  <label for="concernBathroom3"> Shower</label><br>
+  <input id="TextBoxBathroom3" type="text" style="display:none" class="textbox"/><br>
+</div>
+
+<button type="button" class="collapsible">Exterior</button>
+<div class="content">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+
+    <input type="button" value="submit" onclick="WriteToDownload(this.form)">
+</form>
+
+<script>
+//Collapsible Javascript
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
+
+//Toggle Textbox Javascript
+    function toggleOtherTextboxVisible(checkbox_id, textbox_id)
+    {
+        var check = document.getElementById(checkbox_id);
+        if (check.checked) {
+            document.getElementById(textbox_id).style.display = 'block';
+        }
+        else
+            document.getElementById(textbox_id).style.display = 'none';                
+    }
+</script>
+
+</body>
+</html>
+
+ 
